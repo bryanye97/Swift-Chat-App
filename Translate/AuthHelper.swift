@@ -28,13 +28,24 @@ class AuthHelper {
         return _instance
     }
     
-    func login(email: String, password: String, loginHandler: LoginHandler?) {
+    func logIn(email: String, password: String, loginHandler: LoginHandler?) {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
-                print(error ?? "default error duh")
                 self.handleErrors(error: error as! NSError, loginHandler: loginHandler)
             } else {
                 loginHandler?(nil)
+            }
+        })
+    }
+    
+    func register(email: String, password: String, loginHandler: LoginHandler?){
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil {
+                self.handleErrors(error: error as! NSError, loginHandler: loginHandler)
+            } else {
+                if user?.uid != nil {
+                    self.logIn(email: email, password: password, loginHandler: loginHandler)
+                }
             }
         })
     }

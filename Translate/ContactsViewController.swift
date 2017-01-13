@@ -21,8 +21,10 @@ class ContactsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func logout(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func logOut(_ sender: UIBarButtonItem) {
+        if AuthHelper.Instance.logOut() {
+            dismiss(animated: true, completion: nil)
+        }
     }
 
     /*

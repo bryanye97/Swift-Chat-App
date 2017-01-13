@@ -66,7 +66,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="Of1-HH-Cts" id="RD5-8L-PT2"/>
                         <outlet property="passwordTextField" destination="V5C-AU-zSw" id="5ew-jx-hwt"/>
-                        <segue destination="iw9-aj-jcC" kind="show" identifier="loginToContacts" id="x6s-hv-bq0"/>
+                        <segue destination="iw9-aj-jcC" kind="show" identifier="logInToContacts" id="x6s-hv-bq0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -92,7 +92,7 @@
                                     <navigationItem title="Contacts" id="j6J-5n-Ksq">
                                         <barButtonItem key="leftBarButtonItem" title="Logout" id="gOD-Xx-70f">
                                             <connections>
-                                                <action selector="logout:" destination="iw9-aj-jcC" id="mkx-BU-N3g"/>
+                                                <action selector="logOut:" destination="iw9-aj-jcC" id="ZsD-Ew-x6p"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
