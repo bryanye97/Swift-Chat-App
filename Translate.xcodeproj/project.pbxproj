@@ -15,6 +15,8 @@
 		A202A6A31E2856AE00AAC1EE /* TranslateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202A6A21E2856AE00AAC1EE /* TranslateTests.swift */; };
 		A202A6AE1E2856AE00AAC1EE /* TranslateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A202A6AD1E2856AE00AAC1EE /* TranslateUITests.swift */; };
 		A202A6BC1E28573400AAC1EE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A202A6BB1E28573400AAC1EE /* GoogleService-Info.plist */; };
+		A25C5A161E285DD200EAD570 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25C5A151E285DD200EAD570 /* HomeViewController.swift */; };
+		A2C373C21E2863F900429361 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C373C11E2863F900429361 /* ContactsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		A202A6AD1E2856AE00AAC1EE /* TranslateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateUITests.swift; sourceTree = "<group>"; };
 		A202A6AF1E2856AE00AAC1EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A202A6BB1E28573400AAC1EE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A25C5A151E285DD200EAD570 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A2C373C11E2863F900429361 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,10 @@
 		A202A68C1E2856AE00AAC1EE /* Translate */ = {
 			isa = PBXGroup;
 			children = (
+				A25C5A141E285DA600EAD570 /* Plugins */,
+				A25C5A131E285D9600EAD570 /* Controllers */,
+				A25C5A121E285D9200EAD570 /* Views */,
+				A25C5A111E285D8C00EAD570 /* Models */,
 				A202A68D1E2856AE00AAC1EE /* AppDelegate.swift */,
 				A202A68F1E2856AE00AAC1EE /* ViewController.swift */,
 				A202A6911E2856AE00AAC1EE /* Main.storyboard */,
@@ -126,6 +134,36 @@
 				A202A6AF1E2856AE00AAC1EE /* Info.plist */,
 			);
 			path = TranslateUITests;
+			sourceTree = "<group>";
+		};
+		A25C5A111E285D8C00EAD570 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A25C5A121E285D9200EAD570 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A25C5A131E285D9600EAD570 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A25C5A151E285DD200EAD570 /* HomeViewController.swift */,
+				A2C373C11E2863F900429361 /* ContactsViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A25C5A141E285DA600EAD570 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Plugins;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,7 +305,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A202A6901E2856AE00AAC1EE /* ViewController.swift in Sources */,
+				A2C373C21E2863F900429361 /* ContactsViewController.swift in Sources */,
 				A202A68E1E2856AE00AAC1EE /* AppDelegate.swift in Sources */,
+				A25C5A161E285DD200EAD570 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +556,7 @@
 				A202A6B41E2856AE00AAC1EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A202A6B51E2856AE00AAC1EE /* Build configuration list for PBXNativeTarget "TranslateTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +565,7 @@
 				A202A6B71E2856AE00AAC1EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A202A6B81E2856AE00AAC1EE /* Build configuration list for PBXNativeTarget "TranslateUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +574,7 @@
 				A202A6BA1E2856AE00AAC1EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
