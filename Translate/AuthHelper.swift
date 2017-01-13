@@ -1,0 +1,95 @@
+//
+//  AuthProvider.swift
+//  Translate
+//
+//  Created by Bryan Ye on 13/1/17.
+//  Copyright © 2017 Bryan Ye. All rights reserved.
+//
+
+import Foundation
+import FirebaseAuth
+
+typealias LoginHandler = (_ message: String?) -> Void
+
+struct LoginErrorCode {
+    static let INVALID_EMAIL = "Invalid email address, please provide a valid email address."
+    static let WRONG_PASSWORD = "Wrong password. Please enter the correct password."
+    static let PROBLEM_CONNECTING = "Problem connecting to database. Please try again later."
+    static let USER_NOT_FOUND = "User not found. Please register."
+    static let EMAIL_ALREADY_IN_USE = "Email is already in use."
+    static let WEAK_PASSWORD = "Password must be at least 6 characters long."
+}
+
+class AuthHelper {
+    
+    private static let _instance = AuthHelper()
+    
+    static var Instance: AuthHelper {
+        return _instance
+    }
+    
+    func login(email: String, password: String, loginHandler: LoginHandler?) {
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil {
+                print(error ?? "default error duh")
+                self.handleErrors(error: error as! NSError, loginHandler: loginHandler)
+            } else {
+                loginHandler?(nil)
+            }
+        })
+    }
+    
+    func isLoggedIn() -> Bool {
+        if FIRAuth.auth()?.currentUser != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func logOut() -> Bool {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                return true
+            } catch {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func userId() -> String {
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser else { return "" }
+        
+        return currentUser.uid
+    }
+    
+    private func handleErrors(error: NSError, loginHandler: LoginHandler?) {
+        if let errorCode = FIRAuthErrorCode(rawValue: error.code) {
+            
+            switch errorCode {
+            case .errorCodeWrongPassword:
+                loginHandler?(LoginErrorCode.WRONG_PASSWORD)
+                break
+            case .errorCodeInvalidEmail:
+                loginHandler?(LoginErrorCode.INVALID_EMAIL)
+                break
+            case .errorCodeUserNotFound:
+                loginHandler?(LoginErrorCode.USER_NOT_FOUND)
+                break
+            case .errorCodeEmailAlreadyInUse:
+                loginHandler?(LoginErrorCode.EMAIL_ALREADY_IN_USE)
+                break
+            case .errorCodeWeakPassword:
+                loginHandler?(LoginErrorCode.WEAK_PASSWORD)
+                break
+            default:
+                loginHandler?(LoginErrorCode.PROBLEM_CONNECTING)
+                break
+            }
+        }
+        
+    }
+}

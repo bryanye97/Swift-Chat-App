@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -28,14 +29,35 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func login(_ sender: UIButton) {
-        performSegue(withIdentifier: loginToContactsSegue, sender: nil)
+    @IBAction func logIn(_ sender: UIButton) {
+        
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        if emailTextField.text != "" && passwordTextField.text != "" {
+            
+            AuthHelper.Instance.login(email: email, password: password, loginHandler: { (message) in
+                
+                if message != nil {
+                    self.alertUser(title: "Problem with Authentication", message: message!)
+                } else {
+                    print("LOGIN COMPLETED")
+                }
+//                self.performSegue(withIdentifier: self.loginToContactsSegue, sender: self)
+            })
+        }
     }
 
     @IBAction func register(_ sender: UIButton) {
     }
     
+    private func alertUser(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     
+    }
 
     /*
     // MARK: - Navigation
