@@ -12,7 +12,7 @@ import FirebaseAuth
 class HomeViewController: UIViewController {
     
     private let logInToContactsSegue = "logInToContacts"
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -23,7 +23,13 @@ class HomeViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if AuthHelper.Instance.isLoggedIn() {
+            self.performSegue(withIdentifier: self.logInToContactsSegue, sender: self)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,7 +50,7 @@ class HomeViewController: UIViewController {
                     
                     self.emailTextField.text = ""
                     self.passwordTextField.text = ""
-
+                    
                     print("Logging in")
                     self.performSegue(withIdentifier: self.logInToContactsSegue, sender: self)
                 }
@@ -53,7 +59,7 @@ class HomeViewController: UIViewController {
             alertUser(title: "Email and Password are required.", message: "Please enter email and password in the fields")
         }
     }
-
+    
     @IBAction func register(_ sender: UIButton) {
         
         guard let email = emailTextField.text else { return }
@@ -83,17 +89,6 @@ class HomeViewController: UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
-    
+        
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

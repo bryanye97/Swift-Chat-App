@@ -19,6 +19,7 @@
 		A223AF3D1E289A7C000645A0 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223AF3C1E289A7C000645A0 /* DatabaseHelper.swift */; };
 		A25C5A161E285DD200EAD570 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25C5A151E285DD200EAD570 /* HomeViewController.swift */; };
 		A272375F1E2DB88200381342 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A272375E1E2DB88200381342 /* Constants.swift */; };
+		A27237611E2DCD4700381342 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27237601E2DCD4700381342 /* Contact.swift */; };
 		A2C373C21E2863F900429361 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C373C11E2863F900429361 /* ContactsViewController.swift */; };
 		B07D1F4EC44D36D0BC8FD2C0 /* Pods_TranslateUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4215CE0B04DC99FBFB0251 /* Pods_TranslateUITests.framework */; };
 		E01D095DE689164489C7A884 /* Pods_Translate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD17583BB4874095A2C21A6F /* Pods_Translate.framework */; };
@@ -65,6 +66,7 @@
 		A223AF3C1E289A7C000645A0 /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		A25C5A151E285DD200EAD570 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A272375E1E2DB88200381342 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A27237601E2DCD4700381342 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		A2C373C11E2863F900429361 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		AF41AF5BF807FCE8791D9E0A /* Pods-Translate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.debug.xcconfig"; sourceTree = "<group>"; };
 		C29B578B9FEDB300B65EB2D4 /* Pods-Translate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.release.xcconfig"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				A272375E1E2DB88200381342 /* Constants.swift */,
+				A27237601E2DCD4700381342 /* Contact.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				A223AF391E287677000645A0 /* AuthHelper.swift in Sources */,
 				A25C5A161E285DD200EAD570 /* HomeViewController.swift in Sources */,
 				A272375F1E2DB88200381342 /* Constants.swift in Sources */,
+				A27237611E2DCD4700381342 /* Contact.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

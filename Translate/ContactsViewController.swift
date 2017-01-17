@@ -8,33 +8,52 @@
 
 import UIKit
 
-class ContactsViewController: UIViewController {
+class ContactsViewController: UIViewController, FetchData {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+    var contacts = [Contact]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
+        tableView.delegate = self
+        tableView.dataSource = self
+        DatabaseHelper.Instance.delegate = self
+        
+        DatabaseHelper.Instance.getContacts()
+        
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func dataReceived(contacts: [Contact]) {
+        self.contacts = contacts
+        
+        tableView.reloadData()
     }
+
     
     @IBAction func logOut(_ sender: UIBarButtonItem) {
         if AuthHelper.Instance.logOut() {
             dismiss(animated: true, completion: nil)
         }
     }
+}
 
-    /*
-    // MARK: - Navigation
+extension ContactsViewController: UITableViewDelegate {
+    
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension ContactsViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return contacts.count
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let contact = contacts[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = contact.name
+        return cell
+    }
 }

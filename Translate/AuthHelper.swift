@@ -44,6 +44,9 @@ class AuthHelper {
                 self.handleErrors(error: error as! NSError, loginHandler: loginHandler)
             } else {
                 if user?.uid != nil {
+                    
+                    DatabaseHelper.Instance.saveUser(withID: user!.uid, email: email, password: password)
+                    
                     self.logIn(email: email, password: password, loginHandler: loginHandler)
                 }
             }
