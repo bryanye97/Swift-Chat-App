@@ -19,4 +19,10 @@ class DatabaseHelper {
     static var Instance: DatabaseHelper {
         return _instance
     }
+    
+    var databaseRef: FIRDatabaseReference {
+        return FIRDatabase.database().reference()
+    }
+    
+    
 }
