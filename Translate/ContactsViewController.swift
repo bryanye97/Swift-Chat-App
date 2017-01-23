@@ -11,6 +11,7 @@ import UIKit
 class ContactsViewController: UIViewController, FetchData {
 
     @IBOutlet weak var tableView: UITableView!
+    let CHAT_SEGUE = "chatSegue"
     
     var contacts = [Contact]()
     
@@ -41,6 +42,9 @@ class ContactsViewController: UIViewController, FetchData {
 }
 
 extension ContactsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: CHAT_SEGUE, sender: nil)
+    }
     
 }
 

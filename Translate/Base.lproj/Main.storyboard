@@ -107,7 +107,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e4m-61-PPg" id="6Gz-UY-ZXO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -118,11 +118,55 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="fKs-H4-Baf" id="dqD-lB-KhC"/>
+                        <segue destination="R8d-qL-1Ch" kind="show" identifier="chatSegue" id="ETz-9B-eit"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZL-Oh-Zor" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="884" y="141.67916041979012"/>
+        </scene>
+        <!--Chat-->
+        <scene sceneID="M1g-e2-aMF">
+            <objects>
+                <viewController id="Kcy-wq-4IB" customClass="ChatViewController" customModule="Translate" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vf2-Hu-Kxh"/>
+                        <viewControllerLayoutGuide type="bottom" id="uJg-TV-1Y4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cVY-1L-IHB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Chat" id="6RP-D1-32F">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Ghz-Vc-2JG">
+                            <connections>
+                                <action selector="backButton:" destination="Kcy-wq-4IB" id="PT5-qR-lCt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wXg-2n-kpp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2385" y="139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="T2f-3H-ftI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="R8d-qL-1Ch" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qe1-sg-Zte">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Kcy-wq-4IB" kind="relationship" relationship="rootViewController" id="gPq-1c-pwa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wbw-Ys-Lm5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1652" y="139"/>
         </scene>
     </scenes>
     <resources>
