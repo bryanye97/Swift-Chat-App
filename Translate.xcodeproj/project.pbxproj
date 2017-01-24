@@ -21,6 +21,7 @@
 		A272375F1E2DB88200381342 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A272375E1E2DB88200381342 /* Constants.swift */; };
 		A27237611E2DCD4700381342 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27237601E2DCD4700381342 /* Contact.swift */; };
 		A2A674681E35947F00FAD46D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A674671E35947F00FAD46D /* ChatViewController.swift */; };
+		A2A6746C1E35CAE100FAD46D /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A6746B1E35CAE100FAD46D /* MessageHandler.swift */; };
 		A2C373C21E2863F900429361 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C373C11E2863F900429361 /* ContactsViewController.swift */; };
 		B07D1F4EC44D36D0BC8FD2C0 /* Pods_TranslateUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4215CE0B04DC99FBFB0251 /* Pods_TranslateUITests.framework */; };
 		E01D095DE689164489C7A884 /* Pods_Translate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD17583BB4874095A2C21A6F /* Pods_Translate.framework */; };
@@ -69,6 +70,7 @@
 		A272375E1E2DB88200381342 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A27237601E2DCD4700381342 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		A2A674671E35947F00FAD46D /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		A2A6746B1E35CAE100FAD46D /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
 		A2C373C11E2863F900429361 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		AF41AF5BF807FCE8791D9E0A /* Pods-Translate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.debug.xcconfig"; sourceTree = "<group>"; };
 		C29B578B9FEDB300B65EB2D4 /* Pods-Translate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Translate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Translate/Pods-Translate.release.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			children = (
 				A223AF381E287677000645A0 /* AuthHelper.swift */,
 				A223AF3C1E289A7C000645A0 /* DatabaseHelper.swift */,
+				A2A6746B1E35CAE100FAD46D /* MessageHandler.swift */,
 			);
 			name = Plugins;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2C373C21E2863F900429361 /* ContactsViewController.swift in Sources */,
+				A2A6746C1E35CAE100FAD46D /* MessageHandler.swift in Sources */,
 				A223AF3D1E289A7C000645A0 /* DatabaseHelper.swift in Sources */,
 				A2A674681E35947F00FAD46D /* ChatViewController.swift in Sources */,
 				A202A68E1E2856AE00AAC1EE /* AppDelegate.swift in Sources */,

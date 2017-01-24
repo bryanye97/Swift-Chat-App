@@ -28,6 +28,8 @@ class AuthHelper {
         return _instance
     }
     
+    var userName = ""
+    
     func logIn(email: String, password: String, loginHandler: LoginHandler?) {
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {

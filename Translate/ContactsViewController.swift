@@ -30,6 +30,14 @@ class ContactsViewController: UIViewController, FetchData {
     func dataReceived(contacts: [Contact]) {
         self.contacts = contacts
         
+        for contact in contacts {
+            if contact.id == AuthHelper.Instance.userId() {
+                AuthHelper.Instance.userName = contact.name
+                
+                
+            }
+        }
+        
         tableView.reloadData()
     }
 
