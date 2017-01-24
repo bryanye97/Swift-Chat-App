@@ -16,7 +16,7 @@ class ChatViewController: JSQMessagesViewController {
     let picker = UIImagePickerController()
     
     var messages = [JSQMessage]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.senderId = AuthHelper.Instance.userId()
@@ -28,7 +28,7 @@ class ChatViewController: JSQMessagesViewController {
         MessageHandler.Instance.observeMessages()
     }
     
-
+    
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
@@ -108,12 +108,11 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let jsqImageData = JSQPhotoMediaItem(image: image)
-            self.messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: jsqImageData))
-        } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
-            let jsqVideoData = JSQVideoMediaItem(fileURL: videoURL, isReadyToPlay: true)
-            messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, media: jsqVideoData))
+            let data = UIImageJPEGRepresentation(image, 0.01)
+            MessageHandler.Instance.sendMedia(image: data, video: nil, senderId: senderId, senderName: senderDisplayName)
             
+        } else if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
+            MessageHandler.Instance.sendMedia(image: nil, video: videoURL, senderId: senderId, senderName: senderDisplayName)
         }
         self.dismiss(animated: true, completion: nil)
         collectionView.reloadData()

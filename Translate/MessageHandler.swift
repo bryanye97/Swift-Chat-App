@@ -44,12 +44,12 @@ class MessageHandler {
         if image != nil {
             DatabaseHelper.Instance.imageStorageRef.child(senderId + "\(NSUUID().uuidString).jpg").put(image!, metadata: nil, completion: { (metadata: FIRStorageMetadata?, error: Error?) in
                 guard error == nil else { return }
-                self.sendMediaMessage(senderId: senderId, senderName: senderName, url: String(describing: metadata!.downloadURL()))
+                self.sendMediaMessage(senderId: senderId, senderName: senderName, url: String(describing: metadata!.downloadURL()!))
             })
         } else  {
             DatabaseHelper.Instance.videoStorageRef.child(senderId + "\(NSUUID().uuidString)").putFile(video!, metadata: nil, completion: { (metadata: FIRStorageMetadata?, error: Error?) in
                 guard error == nil else { return }
-                self.sendMediaMessage(senderId: senderId, senderName: senderName, url: String(describing: metadata!.downloadURL()))
+                self.sendMediaMessage(senderId: senderId, senderName: senderName, url: String(describing: metadata!.downloadURL()!))
             })
         }
     }
