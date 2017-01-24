@@ -11,17 +11,21 @@ import JSQMessagesViewController
 import MobileCoreServices
 import AVKit
 
-class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChatViewController: JSQMessagesViewController {
     
     let picker = UIImagePickerController()
     
-    private var messages = [JSQMessage]()
+    var messages = [JSQMessage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.senderId = AuthHelper.Instance.userId()
         self.senderDisplayName = AuthHelper.Instance.userName
+        
         picker.delegate = self
+        MessageHandler.Instance.delegate = self
+        
+        MessageHandler.Instance.observeMessages()
     }
     
 
@@ -33,8 +37,52 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         alertUserToChooseMedia()
     }
     
-    // Picker View Functions
     
+    // Data Source Functions
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        return messages[indexPath.item]
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
+        let bubbleFactory = JSQMessagesBubbleImageFactory()
+        return bubbleFactory?.outgoingMessagesBubbleImage(with: .blue)
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
+        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "profile"), diameter: 30)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    // Delegate Functions
+    
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        MessageHandler.Instance.sendMessage(senderId: senderId, senderName: senderDisplayName, text: text)
+        finishSendingMessage()
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        let message = messages[indexPath.item]
+        
+        if message.isMediaMessage {
+            if let mediaItem = message.media as? JSQVideoMediaItem {
+                let player = AVPlayer(url: mediaItem.fileURL)
+                let playerController = AVPlayerViewController()
+                playerController.player = player
+                self.present(playerController, animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     private func chooseMedia(type: CFString) {
         picker.mediaTypes = [type as String]
         present(picker, animated: true, completion: nil)
@@ -70,49 +118,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         self.dismiss(animated: true, completion: nil)
         collectionView.reloadData()
     }
-    
-    // Data Source Functions
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
-        return cell
-    }
-    
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-        return messages[indexPath.item]
-    }
-    
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
-        let bubbleFactory = JSQMessagesBubbleImageFactory()
-        return bubbleFactory?.outgoingMessagesBubbleImage(with: .blue)
-    }
-    
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "profile"), diameter: 30)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
-    }
-    
-    // Delegate Functions
-    
-    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-//        messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text))
-//        collectionView.reloadData()
-        MessageHandler.Instance.sendMessage(senderId: senderId, senderName: senderDisplayName, text: text)
-        finishSendingMessage()
-    }
-    
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
-        let message = messages[indexPath.item]
-        
-        if message.isMediaMessage {
-            if let mediaItem = message.media as? JSQVideoMediaItem {
-                let player = AVPlayer(url: mediaItem.fileURL)
-                let playerController = AVPlayerViewController()
-                playerController.player = player
-                self.present(playerController, animated: true, completion: nil)
-            }
-        }
+}
+
+extension ChatViewController: MessageHandlerDelegate {
+    func messageReceived(senderId: String, senderName: String, text: String) {
+        let message = JSQMessage(senderId: senderId, displayName: senderName, text: text)
+        messages.append(message!)
+        collectionView.reloadData()
     }
 }
