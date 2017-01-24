@@ -12,6 +12,7 @@ import FirebaseStorage
 
 protocol MessageHandlerDelegate: class {
     func messageReceived(senderId: String, senderName: String, text: String)
+    func mediaReceived(senderId: String, senderName: String, mediaUrl: String)
 }
 
 class MessageHandler {
@@ -64,6 +65,20 @@ class MessageHandler {
                         }
                     }
                     
+                }
+            }
+        }
+    }
+    
+    func observeMediaMessages() {
+        DatabaseHelper.Instance.mediaMessagesRef.observe(FIRDataEventType.childAdded) { (snapshot: FIRDataSnapshot) in
+            if let data = snapshot.value as? NSDictionary {
+                if let id = data[Constants.SENDER_ID] as? String {
+                    if let senderName = data[Constants.SENDER_NAME] as? String {
+                        if let fileUrl = data[Constants.URL] as? String {
+                            self.delegate?.mediaReceived(senderId: id, senderName: senderName, mediaUrl: fileUrl)
+                        }
+                    }
                 }
             }
         }

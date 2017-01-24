@@ -11,6 +11,7 @@ target 'Translate' do
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'JSQMessagesViewController'
+  pod 'SDWebImage'
 
   target 'TranslateTests' do
     inherit! :search_paths

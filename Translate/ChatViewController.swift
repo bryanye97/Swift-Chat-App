@@ -10,6 +10,7 @@ import UIKit
 import JSQMessagesViewController
 import MobileCoreServices
 import AVKit
+import SDWebImage
 
 class ChatViewController: JSQMessagesViewController {
     
@@ -26,6 +27,7 @@ class ChatViewController: JSQMessagesViewController {
         MessageHandler.Instance.delegate = self
         
         MessageHandler.Instance.observeMessages()
+        MessageHandler.Instance.observeMediaMessages()
     }
     
     
@@ -50,7 +52,14 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         let bubbleFactory = JSQMessagesBubbleImageFactory()
-        return bubbleFactory?.outgoingMessagesBubbleImage(with: .blue)
+        let message = messages[indexPath.item]
+        
+        if message.senderId == self.senderId {
+            return bubbleFactory?.outgoingMessagesBubbleImage(with: .blue)
+        } else {
+            return bubbleFactory?.incomingMessagesBubbleImage(with: .red)
+        }
+        
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
@@ -124,5 +133,42 @@ extension ChatViewController: MessageHandlerDelegate {
         let message = JSQMessage(senderId: senderId, displayName: senderName, text: text)
         messages.append(message!)
         collectionView.reloadData()
+    }
+    
+    func mediaReceived(senderId: String, senderName: String, mediaUrl: String) {
+        if let url = URL(string: mediaUrl) {
+            do {
+                let data = try Data(contentsOf: url)
+                if let _ = UIImage(data: data) {
+                    let _ = SDWebImageDownloader.shared().downloadImage(with: url, options: [], progress: nil, completed: { (image, data, error, finished) in
+                        DispatchQueue.main.async {
+                            let photo = JSQPhotoMediaItem(image: image)
+                            if senderId == self.senderId {
+                                photo?.appliesMediaViewMaskAsOutgoing = true
+                            } else {
+                                photo?.appliesMediaViewMaskAsOutgoing = false
+                            }
+                            let message = JSQMessage(senderId: senderId, displayName: senderName, media: photo)
+                            self.messages.append(message!)
+                            self.collectionView.reloadData()
+                        }
+                    })
+                } else {
+                    let video = JSQVideoMediaItem(fileURL: url, isReadyToPlay: true)
+                    if senderId == self.senderId {
+                        video?.appliesMediaViewMaskAsOutgoing = true
+                    } else {
+                        video?.appliesMediaViewMaskAsOutgoing = false
+                    }
+                    let message = JSQMessage(senderId: senderId, displayName: senderName, media: video)
+                    self.messages.append(message!)
+                    self.collectionView.reloadData()
+                    
+                    
+                }
+            } catch {
+                // Catch errors
+            }
+        }
     }
 }
